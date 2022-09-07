@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,8 @@ Route::get('/', [MainController::class, 'index'])
 Route::get('/about', [MainController::class, 'aboutUs'])
     ->name('home.about');
 
-Route::get('/contact', [MainController::class, 'contact'])
-    ->name('home.contact');
+Route::get('/contact', [ReportController::class, 'show'])
+    ->name('report');
+
+Route::post('/contact/submit', [ReportController::class, 'store'])
+    ->name('report.store');
