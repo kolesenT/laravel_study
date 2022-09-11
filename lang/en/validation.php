@@ -167,9 +167,9 @@ return [
     */
 
     'attributes' => [
-        'name' => 'Name',
-        'email' => 'Email',
-        'number' => 'Phone',
+        'title' => 'Title',
+        'year' => 'Year',
+        'description' => 'Description',
     ],
 
 ];

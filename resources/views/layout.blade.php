@@ -17,8 +17,12 @@
         <a class="nav-link" href="{{route('home.about')}}">О нас</a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{route('movies')}}">Фильмы</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{route('contact')}}">Обратная связь</a>
     </li>
+
 </ul>
 @include('flash-messages')
  @yield('content')
