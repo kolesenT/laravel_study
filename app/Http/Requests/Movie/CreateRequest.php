@@ -24,9 +24,9 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>['required', 'min:1', 'max:255'],
-            'year'=>['required', 'integer'],
-            'description'=>['required', 'min:100'],
+            'title' => ['required', 'min:1', 'max:255'],
+            'year' => ['required', 'integer'],
+            'description' => ['required', 'min:100'],
         ];
     }
 }

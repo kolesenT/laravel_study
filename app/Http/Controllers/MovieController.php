@@ -13,7 +13,7 @@ class MovieController extends Controller
     {
         $movies = Movie::query()->paginate(5);
 
-        return view('movies.list', ['movies'=> $movies]);
+        return view('movies.list', ['movies' => $movies]);
     }
 
     public function createForm()
@@ -25,17 +25,15 @@ class MovieController extends Controller
     {
         $data = $request->validated();
 
-        $movie= new Movie($data);
+        $movie = new Movie($data);
         $movie->save();
 
         session()->flash('success', 'Success!');
-        return redirect()->route('movies.show', ['movie'=>$movie->id]);
+        return redirect()->route('movies.show', ['movie' => $movie->id]);
     }
 
     public function show(Movie $movie)
     {
-        //$movie = Movie::query()->findOrFail($id);
-        //compact('movie') =>['movie' => $movie];
         return view('movies.show', compact('movie'));
     }
 
@@ -52,7 +50,7 @@ class MovieController extends Controller
         $movie->save();
 
         session()->flash('success', 'Success!');
-        return redirect()->route('movies.show', ['movie'=>$movie->id]);
+        return redirect()->route('movies.show', ['movie' => $movie->id]);
     }
 
     public function delete(Movie $movie)
@@ -61,7 +59,6 @@ class MovieController extends Controller
         session()->flash('success', 'Success deleted!');
 
         return redirect()->route('movies');
-
     }
 
 }

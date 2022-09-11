@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainController::class, 'index'])
-       ->name('home');
+    ->name('home');
 
 Route::get('/about', [MainController::class, 'aboutUs'])
     ->name('home.about');
