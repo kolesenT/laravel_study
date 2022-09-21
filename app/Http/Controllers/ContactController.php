@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Http\Controllers;
-
 
 use App\Http\Requests\CreateContactRequest;
 use App\Mail\NewContact;
-
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
@@ -31,5 +28,4 @@ class ContactController extends Controller
         return redirect()
             ->back();
     }
-
 }

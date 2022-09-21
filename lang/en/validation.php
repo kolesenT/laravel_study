@@ -167,9 +167,15 @@ return [
     */
 
     'attributes' => [
+        'name' => 'Name',
+        'email' => 'Email',
+        'number' => 'Number',
         'title' => 'Title',
         'year' => 'Year',
         'description' => 'Description',
+        'password' => 'Password',
+        'password_confirmation' => 'Confirm Password',
+        'site_policy' => 'Site Policy',
     ],
 
 ];

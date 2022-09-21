@@ -1,9 +1,15 @@
 @extends('layout')
 
-@section('title')
-    Главная
-@endsection
+@section('title', 'Главная')
 
 @section('content')
-<h1>Главная</h1>
+    <div class="container">
+        @if(!auth()->check())
+        <a href="{{route('sing-up.Form')}}">Регистрация</a>
+        <br>
+        <a href="{{route('login')}}">Войти</a>
+        <br>
+        @endif
+    </div>
+
 @endsection

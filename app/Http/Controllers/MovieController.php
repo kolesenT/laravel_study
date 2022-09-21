@@ -60,5 +60,4 @@ class MovieController extends Controller
 
         return redirect()->route('movies');
     }
-
 }
