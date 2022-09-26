@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\UserController;
 use App\Models\Movie;
 use Illuminate\Support\Facades\Route;
 
@@ -23,29 +25,63 @@ Route::get('/', [MainController::class, 'index'])
 Route::get('/about', [MainController::class, 'aboutUs'])
     ->name('home.about');
 
-Route::get('/movies', [MovieController::class, 'list'])
-    ->name('movies');
+Route::group(
+    ['prefix' => '/movies', 'middleware' => 'auth'],
+    function () {
+        Route::get('', [MovieController::class, 'list'])
+            ->name('movies');
 
-Route::get('/movies/create', [MovieController::class, 'createForm'])
-    ->name('movies.createForm');
+        Route::get('/create', [MovieController::class, 'createForm'])
+            ->name('movies.createForm');
 
-Route::post('/movies/create', [MovieController::class, 'create'])
-    ->name('movies.create');
+        Route::post('/create', [MovieController::class, 'create'])
+            ->name('movies.create');
 
-Route::get('/movies/{movie}', [MovieController::class, 'show'])
-    ->name('movies.show');
+        Route::get('/{movie}', [MovieController::class, 'show'])
+            ->name('movies.show');
 
-Route::get('/movies/{movie}/edit', [MovieController::class, 'editForm'])
-    ->name('movies.edit.form');
+        Route::get('/{movie}/edit', [MovieController::class, 'editForm'])
+            ->name('movies.edit.form');
 
-Route::post('/movies/{movie}/edit', [MovieController::class, 'edit'])
-    ->name('movies.edit');
+        Route::post('/{movie}/edit', [MovieController::class, 'edit'])
+            ->name('movies.edit');
 
-Route::post('/movies/{movie}/delete', [MovieController::class, 'delete'])
-    ->name('movies.delete');
+        Route::post('/{movie}/delete', [MovieController::class, 'delete'])
+            ->name('movies.delete');
+    }
+);
 
-Route::get('/contact', [ContactController::class, 'show'])
-    ->name('contact');
+Route::group(
+    ['prefix' => '/contact'],
+    function () {
+        Route::get('', [ContactController::class, 'show'])
+            ->name('contact');
 
-Route::post('/contact/submit', [ContactController::class, 'store'])
-    ->name('contact.store');
+        Route::post('/submit', [ContactController::class, 'store'])
+            ->name('contact.store');
+    }
+);
+
+Route::group(
+    ['prefix' => '/sing-up'],
+    function () {
+        Route::get('', [UserController::class, 'singUpForm'])
+            ->name('sing-up.Form');
+
+        Route::post('', [UserController::class, 'singUp'])
+            ->name('sing-up');
+    }
+);
+
+Route::get('/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])
+    ->name('verify.email');
+
+Route::get('/login', [LoginController::class, 'loginForm'])
+    ->name('login');
+
+Route::post('/login', [LoginController::class, 'loginIn'])
+    ->name('login-in');
+
+
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->name('logout');

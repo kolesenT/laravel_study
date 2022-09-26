@@ -9,21 +9,34 @@
     <title>@yield('title')</title>
 </head>
 <body>
-<ul class="nav">
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('home')}}">Главная</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('home.about')}}">О нас</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('movies')}}">Фильмы</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('contact')}}">Обратная связь</a>
-    </li>
+<div class="container">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('home')}}">Главная</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('home.about')}}">О нас</a>
+        </li>
+        @if(auth()->check())
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('movies')}}">Фильмы</a>
+            </li>
+        @endif
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('contact')}}">Обратная связь</a>
+        </li>
+    </ul>
+    @if(auth()->check())
+        <div class="navbar-text text-end">
+            <form action="{{route('logout')}}" method="post" class="form-check-inline">
+                @csrf
+                <p class="d-inline-block">Вы вошли как {{\Illuminate\Support\Facades\Auth::user()->name}}</p>
+                <button class="btn btn-danger">Выход</button>
+            </form>
+        </div>
+    @endif
+</div>
 
-</ul>
 @include('flash-messages')
  @yield('content')
 </body>
