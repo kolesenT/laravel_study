@@ -27,11 +27,15 @@
                     <td>{{$movie->created_at?->format('Y/m/d')}}</td>
                     <td>
                         <a href="{{route('movies.show', ['movie' => $movie->id])}}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                        @can('update', $movie)
                         <a href="{{route('movies.edit', ['movie' => $movie->id])}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                        @endcan
+                        @can('delete', $movie)
                         <form action="{{route('movies.delete', ['movie' => $movie->id])}}" method="post" class="d-inline">
                             @csrf
                             <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                         </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

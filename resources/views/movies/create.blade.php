@@ -1,4 +1,4 @@
-@extends('layout');
+@extends('layout')
 
 @section('title', 'Create Movie')
 
@@ -17,6 +17,21 @@
                     <div class="invalid-feedback">{{$message}}</div>
                     @enderror
                 </div>
+                <br>
+                <h5>Film genre</h5>
+                @foreach($genres as $genre)
+                    <div class="form-check">
+                        <input type="checkbox" name="genres[]" value="{{$genre->id}}" class="form-check-input"> {{$genre->title}}
+                    </div>
+                @endforeach
+                <br>
+                <h5>Cast</h5>
+                @foreach($actors as $actor)
+                    <div class="form-check">
+                        <input type="checkbox" name="actors[]" value="{{$actor->id}}" class="form-check-input"> {{ $actor->name }} {{ $actor->surname }}
+                    </div>
+                @endforeach
+                <br>
                 <div class="form-group">
                     <label for="title">{{ __('validation.attributes.year') }}</label>
                     <input value="{{ old ('year') }}" name="year" type ="text" class="form-control @error('year') is-invalid @enderror">
