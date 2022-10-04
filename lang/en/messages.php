@@ -2,6 +2,6 @@
 
 return [
     'report' => [
-        'success' => 'Report successfully sent!'
+        'success' => 'Report successfully sent!',
     ],
 ];

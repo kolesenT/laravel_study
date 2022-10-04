@@ -21,6 +21,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('movies')}}">Фильмы</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('genres')}}">Жанры</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('actors')}}">Актеры</a>
+            </li>
         @endif
         <li class="nav-item">
             <a class="nav-link" href="{{route('contact')}}">Обратная связь</a>

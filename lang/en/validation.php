@@ -167,7 +167,10 @@ return [
     */
 
     'attributes' => [
+        'surname' => 'Surname',
         'name' => 'Name',
+        'patronymic' => 'Patronymic',
+        'date_of_birth' => 'Date of Birth',
         'email' => 'Email',
         'number' => 'Number',
         'title' => 'Title',
@@ -176,6 +179,7 @@ return [
         'password' => 'Password',
         'password_confirmation' => 'Confirm Password',
         'site_policy' => 'Site Policy',
+        'heigth' => 'Heigth',
     ],
 
 ];

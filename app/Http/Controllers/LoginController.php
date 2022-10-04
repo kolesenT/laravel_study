@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\LoginRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -30,6 +27,7 @@ class LoginController extends Controller
         }
 
         session()->flash('error', 'The provided credentials are incorrect');
+
         return redirect()->route('login');
     }
 

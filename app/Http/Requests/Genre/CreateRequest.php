@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Movie;
+namespace App\Http\Requests\Genre;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,12 +25,6 @@ class CreateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'min:1', 'max:255'],
-            'year' => ['required', 'integer'],
-            'description' => ['required', 'min:100'],
-            'genres' => ['required', 'array', 'min:1'],
-            'genres.*' =>['required', 'exists:genres,id'],
-            'actors' => ['required', 'array', 'min:1'],
-            'actors.*' =>['required', 'exists:actors,id'],
         ];
     }
 }
