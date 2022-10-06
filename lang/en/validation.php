@@ -180,6 +180,7 @@ return [
         'password_confirmation' => 'Confirm Password',
         'site_policy' => 'Site Policy',
         'heigth' => 'Heigth',
+        'role_id' => 'role',
     ],
 
 ];
