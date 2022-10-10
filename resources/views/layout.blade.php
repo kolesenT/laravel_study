@@ -21,12 +21,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('movies')}}">Фильмы</a>
             </li>
+        @can('viewAny', App\Models\Genre::class)
             <li class="nav-item">
                 <a class="nav-link" href="{{route('genres')}}">Жанры</a>
             </li>
+            @endcan
+        @can('viewAny', App\Models\Actor::class)
             <li class="nav-item">
                 <a class="nav-link" href="{{route('actors')}}">Актеры</a>
             </li>
+            @endcan
         @endif
         <li class="nav-item">
             <a class="nav-link" href="{{route('contact')}}">Обратная связь</a>

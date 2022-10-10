@@ -11,6 +11,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    const IS_ADMIN = 'admin';
+
     use HasApiTokens;
     use HasFactory;
     use Notifiable;

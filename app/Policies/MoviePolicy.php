@@ -41,7 +41,7 @@ class MoviePolicy
      */
     public function create(User $user)
     {
-        return $user->role->name === 'Админ';
+        return $user->role->name === User::IS_ADMIN;
     }
 
     /**

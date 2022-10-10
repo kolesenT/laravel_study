@@ -18,7 +18,7 @@ class ActorPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->role->name === 'Админ';
+        return $user->role->name === User::IS_ADMIN;
     }
 
     /**
@@ -30,7 +30,7 @@ class ActorPolicy
      */
     public function view(User $user, Actor $actor)
     {
-        return $user->role->name === 'Админ';
+        return $user->role->name === User::IS_ADMIN;
     }
 
     /**
@@ -41,7 +41,7 @@ class ActorPolicy
      */
     public function create(User $user)
     {
-        return $user->role->name === 'Админ';
+        return $user->role->name === User::IS_ADMIN;
     }
 
     /**
@@ -53,7 +53,7 @@ class ActorPolicy
      */
     public function update(User $user, Actor $actor)
     {
-        return $user->role->name === 'Админ';
+        return $user->role->name === User::IS_ADMIN;
     }
 
     /**
@@ -65,7 +65,7 @@ class ActorPolicy
      */
     public function delete(User $user, Actor $actor)
     {
-        return $user->role->name === 'Админ';
+        return $user->role->name === User::IS_ADMIN;
     }
 
     /**
@@ -77,7 +77,7 @@ class ActorPolicy
      */
     public function restore(User $user, Actor $actor)
     {
-        return $user->role->name === 'Админ';
+        return $user->role->name === User::IS_ADMIN;
     }
 
     /**
@@ -89,6 +89,6 @@ class ActorPolicy
      */
     public function forceDelete(User $user, Actor $actor)
     {
-        return $user->role->name === 'Админ';
+        return $user->role->name === User::IS_ADMIN;
     }
 }
