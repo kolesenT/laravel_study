@@ -11,6 +11,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    const IS_ADMIN = 'admin';
+
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
@@ -24,6 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+
     ];
 
     /**
@@ -53,5 +57,10 @@ class User extends Authenticatable
     public function movies()
     {
         return $this->hasMany(Movie::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

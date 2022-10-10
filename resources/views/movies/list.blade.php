@@ -5,9 +5,11 @@
 @section('content')
     <br>
     <ul class="nav">
+        @can('create', App\Models\Movie::class)
         <li class="nav-item">
             <a class="nav-link" href="{{route('movies.createForm')}}">Добавить фильм</a>
         </li>
+        @endcan
     <div class="container">
         <br>
         <table class="table">
