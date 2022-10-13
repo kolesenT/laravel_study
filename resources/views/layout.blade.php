@@ -31,6 +31,9 @@
                 <a class="nav-link" href="{{route('actors')}}">Актеры</a>
             </li>
             @endcan
+            <li>
+                <a class="nav-link" href="{{route('login-history')}}">История</a>
+            </li>
         @endif
         <li class="nav-item">
             <a class="nav-link" href="{{route('contact')}}">Обратная связь</a>

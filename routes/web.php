@@ -4,6 +4,7 @@ use App\Http\Controllers\ActorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\UserController;
@@ -27,7 +28,7 @@ Route::get('/about', [MainController::class, 'aboutUs'])
     ->name('home.about');
 
 Route::group(
-    ['prefix' => '/movies', 'middleware' => 'auth'],
+    ['prefix' => '/movies', 'middleware' => ['auth', 'confirm']],
     function () {
         Route::get('', [MovieController::class, 'list'])
             ->name('movies');
@@ -152,3 +153,7 @@ Route::post('/login', [LoginController::class, 'loginIn'])
 
 Route::post('/logout', [LoginController::class, 'logout'])
     ->name('logout');
+
+Route::get('/login-history', [LoginHistoryController::class, 'index'])
+    ->name('login-history')
+    ->middleware('auth');

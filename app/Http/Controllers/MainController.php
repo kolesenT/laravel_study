@@ -6,13 +6,11 @@ use App\Models\Actor;
 use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class MainController
 {
     public function index(Request $request)
     {
-        //dd(Auth::user()->role->name);
         $query = Movie::query()
             ->with(['user', 'genres'])
             ->orderByDesc('created_at');
