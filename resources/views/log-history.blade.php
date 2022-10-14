@@ -14,7 +14,7 @@
             </thead>
             @foreach($visits as $visit)
                 <tr>
-                    <td>{{$visit->enter_time?->format('G:i:s Y/m/d -D')}}</td>
+                    <td>{{$visit->enter_time->format('G:i:s Y/m/d -D')}}</td>
                     <td>{{$visit->user->name}}</td>
                     <td>{{$visit->ip}}</td>
                 </tr>

@@ -27,7 +27,6 @@ class UserLoggedHistory
     {
         $new_enter = new LoginHistory();
         $new_enter->user_id = $event->user->id;
-        date_default_timezone_set('Europe/Minsk');
         $new_enter->enter_time = new \DateTime();
         $new_enter->ip = $event->request->ip();
         $new_enter->save();
