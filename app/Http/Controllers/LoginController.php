@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserLoggedIn;
 use App\Http\Requests\User\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,8 +20,12 @@ class LoginController extends Controller
         $check = function ($user) {
             return $user->email_verified_at !== null;
         };
-        //attemptWhen - проверяем верификацию email
-        if (Auth::attemptWhen($data, $check)) {
+
+        //attemptWhen($data, $check) - проверяем верификацию email
+        if (Auth::attemptWhen($data)) {
+            $event = new UserLoggedIn(Auth::user(), $request);
+            event($event);
+
             session()->flash('success', 'Signed In');
 
             return redirect()->route('home');
