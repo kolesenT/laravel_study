@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserLoggedIn;
 use App\Http\Requests\User\LoginRequest;
+use App\Service\UserService;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function __construct(private UserService $userService)
+    {
+    }
+
     public function loginForm()
     {
         return view('login');
@@ -17,15 +21,8 @@ class LoginController extends Controller
     {
         $data = $request->validated();
 
-        $check = function ($user) {
-            return $user->email_verified_at !== null;
-        };
-
-        //attemptWhen($data, $check) - проверяем верификацию email
-        if (Auth::attemptWhen($data)) {
-            $event = new UserLoggedIn(Auth::user(), $request);
-            event($event);
-
+        $user = $this->userService->signIn($data, 'web', $request);
+        if ($user) {
             session()->flash('success', 'Signed In');
 
             return redirect()->route('home');
@@ -38,7 +35,6 @@ class LoginController extends Controller
 
     public function logout()
     {
-
         // удаляем куку для текущего пользователя
         Auth::logout();
 

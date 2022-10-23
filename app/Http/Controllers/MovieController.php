@@ -7,14 +7,18 @@ use App\Http\Requests\Movie\EditRequest;
 use App\Models\Actor;
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Service\MovieService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
+    public function __construct(private MovieService $movieService)
+    {
+    }
+
     public function list(Request $request)
     {
-        $movies = Movie::query()->paginate(5);
+        $movies = Movie::query()->with(['user'])->paginate(6);
 
         return view('movies.list', ['movies' => $movies]);
     }
@@ -31,12 +35,9 @@ class MovieController extends Controller
     {
         $data = $request->validated();
 
-        $movie = new Movie($data);
-        $movie->user()->associate(Auth::user());
-        $movie->save();
+        $user = $request->user();
 
-        $movie->genres()->attach($data['genres']);
-        $movie->actors()->attach($data['actors']);
+        $movie = $this->movieService->create($data, $user);
 
         session()->flash('success', 'Success!');
 
@@ -59,12 +60,8 @@ class MovieController extends Controller
     public function edit(Movie $movie, EditRequest $request)
     {
         $data = $request->validated();
-        //dd($data);
-        $movie->fill($data);
-        $movie->save();
 
-        $movie->genres()->sync($data['genres']);
-        $movie->actors()->sync($data['actors']);
+        $this->movieService->edit($movie, $data);
 
         session()->flash('success', 'Success!');
 
@@ -73,7 +70,7 @@ class MovieController extends Controller
 
     public function delete(Movie $movie)
     {
-        $movie->delete();
+        $this->movieService->delete($movie);
         session()->flash('success', 'Success deleted!');
 
         return redirect()->route('movies');

@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Genre\CreateRequest;
 use App\Http\Requests\Genre\EditRequest;
 use App\Models\Genre;
+use App\Service\GenreService;
 
 class GenreController extends Controller
 {
+    public function __construct(private GenreService $genreService)
+    {
+    }
+
     public function list()
     {
         $genres = Genre::query()->paginate(10);
@@ -24,8 +29,7 @@ class GenreController extends Controller
     {
         $data = $request->validated();
 
-        $genre = new Genre($data);
-        $genre->save();
+        $genre = $this->genreService->create($data);
 
         session()->flash('success', 'Success!');
 
@@ -46,8 +50,7 @@ class GenreController extends Controller
     {
         $data = $request->validated();
 
-        $genre->fill($data);
-        $genre->save();
+        $genre = $this->genreService->edit($genre, $data);
 
         session()->flash('success', 'Success!');
 
@@ -56,7 +59,7 @@ class GenreController extends Controller
 
     public function delete(Genre $genre)
     {
-        $genre->delete();
+        $this->genreService->delete($genre);
         session()->flash('success', 'Success deleted!');
 
         return redirect()->route('genres');

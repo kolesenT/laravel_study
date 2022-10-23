@@ -10,7 +10,7 @@
         <h3>{{$actor->date_of_birth->format('Y/m/d')}}</h3>
         <h3>{{$actor->heigth}}</h3>
         <h4>{{$actor->created_at?->format('Y/m/d')}}</h4>
-        <h5>Автор{{}}</h5>
+        <h5>Автор: {{ auth()->user()->name }}</h5>
     </div>
 
 @endsection

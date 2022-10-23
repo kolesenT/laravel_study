@@ -2,13 +2,16 @@
 
 namespace App\Observers;
 
-use App\Mail\EditMovie;
+use App\Jobs\EditMovieEmail;
 use App\Models\Movie;
-use App\Models\User;
-use Illuminate\Support\Facades\Mail;
 
 class MovieObserver
 {
+    public function created()
+    {
+        //
+    }
+
     /**
      * Handle the Movie "updated" event.
      *
@@ -18,12 +21,7 @@ class MovieObserver
     public function updated(Movie $movie)
     {
         if ($movie->year !== $movie->getOriginal('year')) {
-            $users = User::all();
-            foreach ($users as $user) {
-                if ($movie->user_id !== $user->id) {
-                    Mail::to($user->email)->send(new EditMovie($movie));
-                }
-            }
+            EditMovieEmail::dispatch($movie);
         }
     }
 }
