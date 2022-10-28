@@ -30,10 +30,10 @@ class SendEmailNotVerificationUser extends Command
      */
     public function handle()
     {
-        $users = User::all()->whereNull('email_verified_at');
+        $users = User::query()->whereNull('email_verified_at')->all();
 
         //если таких пользов. нет, то выдавать сообщение
-        if ($users->count() == 0) {
+        if (!$users->count()) {
             $this->warn('All verified!');
 
             return  self::FAILURE;

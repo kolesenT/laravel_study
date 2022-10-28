@@ -46,7 +46,7 @@ class CreateUserAdmin extends Command
         $user->name = 'Admin';
         $user->email = $email;
         $user->password = $password;
-        $user->role_id = Role::all()->Where('name', User::IS_ADMIN)->value('id');
+        $user->role_id = Role::query()->Where('name', User::IS_ADMIN)->first()->id;
         $user->email_verified_at = new \DateTime();
         $user->save();
 

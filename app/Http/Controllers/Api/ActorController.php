@@ -53,6 +53,6 @@ class ActorController extends Controller
             'message' => 'actor deleted',
         ];
 
-        return response($data, status: 204);
+        return response($data, status: 200);
     }
 }

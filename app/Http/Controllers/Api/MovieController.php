@@ -53,6 +53,6 @@ class MovieController extends Controller
             'message' => 'movie deleted',
         ];
 
-        return response($data, status: 204);
+        return response($data, status: 200);
     }
 }
