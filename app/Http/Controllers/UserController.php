@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserRegistered;
 use App\Http\Requests\User\SingUpRequest;
-use App\Mail\EmailConfirm;
 use App\Models\User;
+use App\Service\UserService;
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
+    public function __construct(private UserService $userService)
+    {
+    }
+
     public function singUpForm()
     {
         return view('sing-up');
@@ -20,14 +22,8 @@ class UserController extends Controller
     public function singUp(SingUpRequest $request)
     {
         $data = $request->validated();
-        $user = new User($data);
 
-        $user->save();
-
-        $event = new UserRegistered($user);
-        event($event);
-
-        //Mail::to($user->email)->send(new EmailConfirm($user));
+        $this->userService->register($data);
 
         session()->flash('success', 'Success!');
 

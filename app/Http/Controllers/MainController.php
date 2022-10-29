@@ -12,7 +12,7 @@ class MainController
     public function index(Request $request)
     {
         $query = Movie::query()
-            ->with(['user', 'genres'])
+            ->with(['user', 'genres', 'actors'])
             ->orderByDesc('created_at');
 
         if ($request->has('title')) {
@@ -41,8 +41,10 @@ class MainController
         }
 
         $movies = $query
-            ->paginate(3)
+            ->paginate(8)
             ->appends($request->query());
+
+        //dd($movies);
 
         $genres = Genre::all();
         $actors = Actor::all();

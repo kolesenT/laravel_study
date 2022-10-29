@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Actor\CreateRequest;
 use App\Http\Requests\Actor\EditRequest;
 use App\Models\Actor;
+use App\Service\ActorService;
 
 class ActorController extends Controller
 {
+    public function __construct(private ActorService $actorService)
+    {
+    }
+
     public function list()
     {
         $actors = Actor::query()->paginate(10);
@@ -24,8 +29,7 @@ class ActorController extends Controller
     {
         $data = $request->validated();
 
-        $actor = new Actor($data);
-        $actor->save();
+        $actor = $this->actorService->create($data);
 
         session()->flash('success', 'Success!');
 
@@ -39,7 +43,6 @@ class ActorController extends Controller
 
     public function editForm(Actor $actor)
     {
-        //dd($actor);
         return view('actors.edit', compact('actor'));
     }
 
@@ -47,8 +50,7 @@ class ActorController extends Controller
     {
         $data = $request->validated();
 
-        $actor->fill($data);
-        $actor->save();
+        $this->actorService->edit($actor, $data);
 
         session()->flash('success', 'Success!');
 
@@ -57,7 +59,7 @@ class ActorController extends Controller
 
     public function delete(Actor $actor)
     {
-        $actor->delete();
+        $this->actorService->delete($actor);
         session()->flash('success', 'Success deleted!');
 
         return redirect()->route('actors');
