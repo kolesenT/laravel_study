@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import './TemperatureControl.css';
 import './TemperatureControl.css'
 
 function TemperatureControl() {
