@@ -1,0 +1,4 @@
+input:checked+span {
+    color: aquamarine;
+    text-decoration: line-through;
+}
