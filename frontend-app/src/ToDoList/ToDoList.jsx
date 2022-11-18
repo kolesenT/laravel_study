@@ -1,58 +1,66 @@
 import { render } from "@testing-library/react";
-import { useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import MessageContext from "../context/MessageContext";
 import './ToDoList.css';
 
-function ToDoList() {
-    const [input, setInput] = useState('');
-    const [items, setItems] = useState([]);
+function ToDoList({ save = () => { }, load = () => { } }) {
+    const input = useRef('');
+    const [items, setItems] = useState(JSON.parse(load()) ?? []);
+    const myCtx = useContext(MessageContext);
 
-    const onInputChange = (e) => {
-        setInput(e.target.value);
-    }
+    useEffect(() => {
+        save(JSON.stringify(items))
+    }, [items]);
 
     const addItem = (e) => {
         //отменяет обработчик события по умолчанию
         e.preventDefault();
 
-        if (input === '') {
+        if (input.current.value === '') {
+            myCtx.error('Input is empty!');
             return;
         }
 
-        const newItem = [...items, { value: input, isDone: false }];
+        const newItem = [...items, { value: input.current.value, isDone: false }];
         setItems(newItem);
 
-        setInput('');
+
+        input.current.value = '';
+        input.current.blur();
+        myCtx.success('Item was addad!');
     }
 
     const toggleDone = (index) => {
         const newItem = [...items];
 
         newItem[index].isDone = !newItem[index].isDone;
-        setItems(newItem);
 
+        setItems(newItem);
     }
 
     const toggleDel = (index) => {
-        const newItem = items.filter((_, i) => i != index);
+        const newItem = items.filter((_, i) => i !== index);
 
         setItems(newItem);
+        myCtx.success('Item was deleted!');
     }
 
-
-    const deleteAll = () => setItems([])
+    const deleteAll = () => {
+        setItems([])
+        myCtx.ligth();
+    }
 
     return (
         <div className="container">
             <h1 className="text-center">Shopping List</h1>
             <div className="lg-6 md-8 sm-10 justify-content-center">
                 <form className="input-group" onSubmit={addItem}>
-                    <input onChange={onInputChange} value={input} type="text" className="form-control" />
+                    <input ref={input} type="text" className="form-control" />
                     <div className="input-group-append">
                         <button className="input-group-text">Add</button>
                     </div>
-                    <button onClick={deleteAll} class="btn btn-light">Delete all</button>
                 </form>
-
+                <button onClick={deleteAll} class="btn btn-primary me-md-2" type="button">Delete all</button>
                 <div className="my-3 p-3">
                     <ul className="list-group">
                         {items.map((item, index) =>
@@ -76,7 +84,7 @@ function Item({ value, isDone, toggle, del }) {
             <span>
                 {value}
             </span>
-            <button onClick={del} className="btn btn-secondary btn-sm">
+            <button onClick={del} className="btn-trash btn-sm">
                 delete
             </button>
         </li>

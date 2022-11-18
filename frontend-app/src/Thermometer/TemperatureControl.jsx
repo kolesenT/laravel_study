@@ -1,14 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import MessageContext from "../context/MessageContext";
 import './TemperatureControl.css'
 
 function TemperatureControl() {
-  const [temp, setTemp] = useState(10);
+
+  const [temp, setTemp] = useState(0);
+  const myCtx = useContext(MessageContext);
+
 
   const rise = () => {
-    temp < 30 && setTemp(temp + 1);
+    if (temp < 30) {
+      setTemp(temp + 1);
+      myCtx.success('The temperature has increased!');
+    }
+    else {
+      myCtx.ligth();
+    }
+
   }
+
   const drop = () => {
-    temp > 0 && setTemp(temp - 1);
+    if (temp > 0) {
+      setTemp(temp - 1);
+      myCtx.success('The temperature has decreased!');
+    }
+    else {
+      myCtx.ligth();
+    }
   }
 
   return (
