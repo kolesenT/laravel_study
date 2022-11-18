@@ -9,13 +9,24 @@ function TemperatureControl() {
 
 
   const rise = () => {
-    temp < 30 && setTemp(temp + 1);
-    myCtx.success('The temperature has increased!');
+    if (temp < 30) {
+      setTemp(temp + 1);
+      myCtx.success('The temperature has increased!');
+    }
+    else {
+      myCtx.ligth();
+    }
+
   }
 
   const drop = () => {
-    temp > 0 && setTemp(temp - 1);
-    myCtx.success('The temperature has decreased!');
+    if (temp > 0) {
+      setTemp(temp - 1);
+      myCtx.success('The temperature has decreased!');
+    }
+    else {
+      myCtx.ligth();
+    }
   }
 
   return (

@@ -9,9 +9,10 @@ const MessageBar = () => {
     }
 
     return (
-        <div className={`alert alert-${myCtx}`}>
+        <div className={`alert alert-${myCtx.type}`} role="alert">
             {myCtx.text}
         </div>
+
     );
 };
 

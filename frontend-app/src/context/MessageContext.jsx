@@ -5,6 +5,7 @@ const MessageContext = createContext({
     text: null,
     success: () => { },
     error: () => { },
+    ligth: () => { },
 });
 
 const MessageProvider = (props) => {
@@ -21,8 +22,13 @@ const MessageProvider = (props) => {
         setText(msg);
     }
 
+    const ligth = () => {
+        setType('ligth');
+        setText('');
+    }
+
     return (
-        <MessageContext.Provider value={{ type, text, success, error }}>
+        <MessageContext.Provider value={{ type, text, success, error, ligth }}>
             {props.children}
         </MessageContext.Provider>
     );

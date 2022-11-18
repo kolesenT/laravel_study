@@ -45,8 +45,10 @@ function ToDoList({ save = () => { }, load = () => { } }) {
         myCtx.success('Item was deleted!');
     }
 
-
-    const deleteAll = () => setItems([])
+    const deleteAll = () => {
+        setItems([])
+        myCtx.ligth();
+    }
 
     return (
         <div className="container">
