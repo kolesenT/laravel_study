@@ -1,16 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import MessageContext from "../context/MessageContext";
+import { drop, getThermo, rise } from "../store/ThermoSlice";
 import './TemperatureControl.css'
 
 function TemperatureControl() {
-
-  const [temp, setTemp] = useState(0);
   const myCtx = useContext(MessageContext);
+  const temp = useSelector(getThermo);
+  const dispatch = useDispatch();
 
-
-  const rise = () => {
+  const inc = () => {
     if (temp < 30) {
-      setTemp(temp + 1);
+      dispatch(rise(1))
       myCtx.success('The temperature has increased!');
     }
     else {
@@ -19,9 +20,9 @@ function TemperatureControl() {
 
   }
 
-  const drop = () => {
+  const dec = () => {
     if (temp > 0) {
-      setTemp(temp - 1);
+      dispatch(drop(1))
       myCtx.success('The temperature has decreased!');
     }
     else {
@@ -37,8 +38,8 @@ function TemperatureControl() {
         </div>
       </div>
       <div className="button-container">
-        <button onClick={rise}>+</button>
-        <button onClick={drop}>-</button>
+        <button onClick={inc}>+</button>
+        <button onClick={dec}>-</button>
       </div>
     </div>
   )
