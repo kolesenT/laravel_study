@@ -10,6 +10,10 @@ import Movies from './pages/Movies';
 import AboutMovie from './pages/AboutMovie';
 import Genres from './pages/Genres';
 import Actors from './pages/Actors';
+import ToDoList from './ToDoList/ToDoList';
+import TemperatureControl from './Thermometer/TemperatureControl';
+import store from './store/store'
+import { Provider } from 'react-redux';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,7 +21,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // const StorageToDoList = withLocalStorage('todolist', ToDoList);
 
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <MessageProvider>
       <BrowserRouter>
         <Header />
@@ -31,11 +35,13 @@ root.render(
             </Route>
             <Route path='/genres' element={<Genres />} />
             <Route path='/actors' element={<Actors />} />
+            <Route path='/todolist' element={<ToDoList />} />
+            <Route path='/thermo' element={<TemperatureControl />} />
           </Routes>
         </div>
         <Footer />
       </BrowserRouter>
     </MessageProvider>
-  </React.StrictMode>
+  </Provider >
 );
 
